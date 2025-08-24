@@ -1,0 +1,2 @@
+# microLocationWeatherMonitoringSystem
+A tool to monitor weather with very high resolution of a really small area using IOT, to help integrate with the existing forecasting systems to make it more accurate
