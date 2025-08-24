@@ -1,0 +1,9 @@
+/* Sets the default font for the entire page */
+body {
+    font-family: 'Inter', sans-serif;
+}
+.btn-active {
+    background-color: #7C3AED; /* Purple-600 */
+    color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
