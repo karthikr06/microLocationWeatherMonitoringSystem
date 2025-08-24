@@ -49,5 +49,5 @@ void loop() {
   Serial.printf("Node %d sent data %d: %d, %d, %d\n", data.nodeId, data.dataNum, data.value1, data.value2, data.value3);
   delay(5000);
   num++;
-  if(num>=99) num=0;
+  if(num>99) num=0;
 }
