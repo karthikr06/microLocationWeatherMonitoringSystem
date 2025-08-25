@@ -180,7 +180,7 @@
             // Update current value displays
             document.getElementById('currentTemp').innerText = `${parseFloat(latestEntry.Temperature)} °C`;
             document.getElementById('currentHumidity').innerText = `${parseFloat(latestEntry.Humidity)} %`;
-            document.getElementById('currentAirQuality').innerText = `${parseFloat(latestEntry['Air Quality']) * 10} %`; // Convert to percentage
+            document.getElementById('currentAirQuality').innerText = `${parseFloat(latestEntry['Air Quality'])} %`;
             document.getElementById('currentRain').innerText = `${parseFloat(latestEntry.Rainfall)} mm`;
 
             updateTable(validData);
