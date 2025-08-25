@@ -169,7 +169,7 @@
             const labels = recentData.map(row => new Date(row.Timestamp).toLocaleTimeString());
             const tempData = recentData.map(row => parseFloat(row.Temperature));
             const humidityData = recentData.map(row => parseFloat(row.Humidity));
-            const airQualityData = recentData.map(row => parseFloat(row['Air Quality'])); // Convert to percentage
+            const airQualityData = recentData.map(row => parseFloat(row['Air Quality']));
             const rainData = recentData.map(row => parseFloat(row.Rainfall));
 
             updateChartData(myCharts.temp, labels, tempData);
@@ -180,7 +180,7 @@
             // Update current value displays
             document.getElementById('currentTemp').innerText = `${parseFloat(latestEntry.Temperature)} °C`;
             document.getElementById('currentHumidity').innerText = `${parseFloat(latestEntry.Humidity)} %`;
-            document.getElementById('currentAirQuality').innerText = `${parseFloat(latestEntry['Air Quality'])} %`;
+            document.getElementById('currentAirQuality').innerText = `${parseFloat(latestEntry['Air Quality'])} %`; 
             document.getElementById('currentRain').innerText = `${parseFloat(latestEntry.Rainfall)} mm`;
 
             updateTable(validData);
@@ -199,7 +199,7 @@
             tableBody.innerHTML = '';
             const recentDataForTable = data.slice(-50).reverse(); 
             recentDataForTable.forEach(row => {
-                const tableRow = `<tr><td class="px-6 py-4 whitespace-nowrap">${new Date(row.Timestamp).toLocaleString()}</td><td class="px-6 py-4 whitespace-nowrap">${row.Temperature} °C</td><td class="px-6 py-4 whitespace-nowrap">${row.Humidity} %</td><td class="px-6 py-4 whitespace-nowrap">${parseFloat(row['Air Quality']) * 10} %</td><td class="px-6 py-4 whitespace-nowrap">${row.Rainfall} mm</td></tr>`;
+                const tableRow = `<tr><td class="px-6 py-4 whitespace-nowrap">${new Date(row.Timestamp).toLocaleString()}</td><td class="px-6 py-4 whitespace-nowrap">${row.Temperature} °C</td><td class="px-6 py-4 whitespace-nowrap">${row.Humidity} %</td><td class="px-6 py-4 whitespace-nowrap">${parseFloat(row['Air Quality'])} %</td><td class="px-6 py-4 whitespace-nowrap">${row.Rainfall} mm</td></tr>`;
                 tableBody.innerHTML += tableRow;
             });
         }
