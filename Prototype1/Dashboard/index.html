@@ -132,7 +132,7 @@
         // function to get data from google sheet
         async function getData(node) {
             const gid = (node === 1) ? node1_sheet_gid : node2_sheet_gid;
-            const url = `https://docs.google.com/spreadsheets/d/e/${sheet_id}/pub?gid=${gid}&single=true&output=csv`;
+            const url = `https://docs.google.com/spreadsheets/d/e/${sheet_id}/pub?gid=${gid}&single=true&output=csv&_=${new Date().getTime()}`;
             
             try {
                 const response = await fetch(url);
