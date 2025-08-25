@@ -17,9 +17,10 @@
 
     <div class="container mx-auto p-6 md:p-12">
         <header class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-slate-900">Micro Location Weather Monitoring System</h1>
+            <h1 class="text-4xl font-bold text-slate-900">Micro Location Weather monitoring system</h1>
+            <p class="text-lg text-slate-600 mt-2">Live data from sensor nodes</p>
             
-            <!-- New Icon Links Section -->
+            <!-- Icon Links Section -->
             <div class="flex justify-center items-center space-x-4 mt-4">
                 <a href="https://github.com/karthikr06/microLocationWeatherMonitoringSystem" target="_blank" class="text-slate-500 hover:text-slate-800 transition-colors" aria-label="GitHub Repository">
                     <svg class="w-8 h-8" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -30,9 +31,9 @@
             </div>
         </header>
 
-        <!-- New Secondary Layer for all content -->
+        <!-- Secondary Layer for all content -->
         <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-            <!-- Node Selection Buttons are now inside the new layer -->
+            <!-- Node Selection Buttons -->
             <div class="flex justify-center space-x-4 mb-10">
                 <button id="node1Btn" class="px-6 py-3 font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105 btn-active" onclick="switchNode(1)">Node 1</button>
                 <button id="node2Btn" class="px-6 py-3 font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105 bg-slate-200 text-purple-600" onclick="switchNode(2)">Node 2</button>
@@ -43,29 +44,37 @@
                 <!-- Temperature Chart -->
                 <div class="bg-orange-100 p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 text-center text-orange-800">Temperature (°C)</h2>
-                    <div class="relative h-64">
-                        <canvas id="tempChart"></canvas>
+                    <div class="relative h-64"><canvas id="tempChart"></canvas></div>
+                    <div class="text-center mt-4">
+                        <span class="text-lg font-semibold text-orange-800">Current: </span>
+                        <span id="currentTemp" class="text-lg font-bold text-orange-900">--</span>
                     </div>
                 </div>
                 <!-- Humidity Chart -->
                 <div class="bg-sky-100 p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 text-center text-sky-800">Humidity (%)</h2>
-                    <div class="relative h-64">
-                        <canvas id="humidityChart"></canvas>
+                    <div class="relative h-64"><canvas id="humidityChart"></canvas></div>
+                    <div class="text-center mt-4">
+                        <span class="text-lg font-semibold text-sky-800">Current: </span>
+                        <span id="currentHumidity" class="text-lg font-bold text-sky-900">--</span>
                     </div>
                 </div>
                 <!-- Air Quality Chart -->
                 <div class="bg-red-100 p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 text-center text-red-800">Air Quality (1-10)</h2>
-                    <div class="relative h-64">
-                        <canvas id="airQualityChart"></canvas>
+                    <div class="relative h-64"><canvas id="airQualityChart"></canvas></div>
+                    <div class="text-center mt-4">
+                        <span class="text-lg font-semibold text-red-800">Current: </span>
+                        <span id="currentAirQuality" class="text-lg font-bold text-red-900">--</span>
                     </div>
                 </div>
                 <!-- Rainfall Chart -->
                 <div class="bg-indigo-100 p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 text-center text-indigo-800">Rainfall (mm)</h2>
-                    <div class="relative h-64">
-                        <canvas id="rainChart"></canvas>
+                    <div class="relative h-64"><canvas id="rainChart"></canvas></div>
+                     <div class="text-center mt-4">
+                        <span class="text-lg font-semibold text-indigo-800">Current: </span>
+                        <span id="currentRain" class="text-lg font-bold text-indigo-900">--</span>
                     </div>
                 </div>
             </div>
@@ -106,27 +115,8 @@
         function createChart(ctx, label, color) {
             return new Chart(ctx, {
                 type: 'line',
-                data: {
-                    labels: [],
-                    datasets: [{
-                        label: label,
-                        data: [],
-                        borderColor: color,
-                        backgroundColor: color + '33',
-                        borderWidth: 2.5,
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { beginAtZero: false },
-                        x: { ticks: { maxRotation: 0, minRotation: 0, autoSkip: true, maxTicksLimit: 10 } }
-                    },
-                    plugins: { legend: { display: false } }
-                }
+                data: { labels: [], datasets: [{ label: label, data: [], borderColor: color, backgroundColor: color + '33', borderWidth: 2.5, fill: true, tension: 0.4 }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: false }, x: { ticks: { maxRotation: 0, minRotation: 0, autoSkip: true, maxTicksLimit: 10 } } }, plugins: { legend: { display: false } } }
             });
         }
         
@@ -134,22 +124,8 @@
         function createBarChart(ctx, label, color) {
             return new Chart(ctx, {
                 type: 'bar',
-                data: {
-                    labels: [],
-                    datasets: [{
-                        label: label,
-                        data: [],
-                        borderColor: color,
-                        backgroundColor: color,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: { y: { beginAtZero: true } },
-                    plugins: { legend: { display: false } }
-                }
+                data: { labels: [], datasets: [{ label: label, data: [], borderColor: color, backgroundColor: color, borderWidth: 1 }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
             });
         }
 
@@ -160,9 +136,7 @@
             
             try {
                 const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Network issue. Check sheet ID and publish settings.');
-                }
+                if (!response.ok) { throw new Error('Network issue. Check sheet ID and publish settings.'); }
                 const csvText = await response.text();
                 const data = processData(csvText);
                 updatePage(data);
@@ -179,9 +153,7 @@
             return rows.map(row => {
                 const values = row.split(',');
                 let obj = {};
-                headers.forEach((header, i) => {
-                    obj[header.trim()] = values[i] ? values[i].trim() : '';
-                });
+                headers.forEach((header, i) => { obj[header.trim()] = values[i] ? values[i].trim() : ''; });
                 return obj;
             });
         }
@@ -192,6 +164,7 @@
 
             const validData = data.filter(row => row.Timestamp);
             const recentData = validData.slice(-50); 
+            const latestEntry = validData[validData.length - 1];
 
             const labels = recentData.map(row => new Date(row.Timestamp).toLocaleTimeString());
             const tempData = recentData.map(row => parseFloat(row.Temperature));
@@ -203,6 +176,12 @@
             updateChartData(myCharts.humidity, labels, humidityData);
             updateChartData(myCharts.airQuality, labels, airQualityData);
             updateChartData(myCharts.rain, labels, rainData);
+
+            // Update current value displays
+            document.getElementById('currentTemp').innerText = `${parseFloat(latestEntry.Temperature)} °C`;
+            document.getElementById('currentHumidity').innerText = `${parseFloat(latestEntry.Humidity)} %`;
+            document.getElementById('currentAirQuality').innerText = `${parseFloat(latestEntry['Air Quality'])}`;
+            document.getElementById('currentRain').innerText = `${parseFloat(latestEntry.Rainfall)} mm`;
 
             updateTable(validData);
         }
@@ -218,19 +197,9 @@
         function updateTable(data) {
             const tableBody = document.getElementById('dataTableBody');
             tableBody.innerHTML = '';
-            
             const recentDataForTable = data.slice(-50).reverse(); 
-
             recentDataForTable.forEach(row => {
-                const tableRow = `
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">${new Date(row.Timestamp).toLocaleString()}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">${row.Temperature} °C</td>
-                        <td class="px-6 py-4 whitespace-nowrap">${row.Humidity} %</td>
-                        <td class="px-6 py-4 whitespace-nowrap">${row['Air Quality']}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">${row.Rainfall} mm</td>
-                    </tr>
-                `;
+                const tableRow = `<tr><td class="px-6 py-4 whitespace-nowrap">${new Date(row.Timestamp).toLocaleString()}</td><td class="px-6 py-4 whitespace-nowrap">${row.Temperature} °C</td><td class="px-6 py-4 whitespace-nowrap">${row.Humidity} %</td><td class="px-6 py-4 whitespace-nowrap">${row['Air Quality']}</td><td class="px-6 py-4 whitespace-nowrap">${row.Rainfall} mm</td></tr>`;
                 tableBody.innerHTML += tableRow;
             });
         }
@@ -257,11 +226,9 @@
         
         // this runs when the page loads
         window.onload = () => {
-            // Set the link for the raw data sheet icon
             const rawDataUrl = `https://docs.google.com/spreadsheets/d/e/${sheet_id}/pubhtml`;
             document.getElementById('sheetsIconLink').href = rawDataUrl;
 
-            // Updated color palette
             myCharts.temp = createChart(document.getElementById('tempChart').getContext('2d'), 'Temperature', '#F97316');
             myCharts.humidity = createChart(document.getElementById('humidityChart').getContext('2d'), 'Humidity', '#0EA5E9');
             myCharts.airQuality = createChart(document.getElementById('airQualityChart').getContext('2d'), 'Air Quality', '#EF4444');
@@ -269,10 +236,7 @@
 
             getData(currentNode);
             
-            // refresh data every 15 seconds
-            setInterval(() => {
-                getData(currentNode);
-            }, 15000);
+            setInterval(() => { getData(currentNode); }, 15000);
         };
     </script>
 </body>
