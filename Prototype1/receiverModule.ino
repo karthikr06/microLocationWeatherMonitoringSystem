@@ -44,7 +44,7 @@ void onReceive(const esp_now_recv_info_t *recv_info, const uint8_t *incomingData
   lcd.print(",");
   lcd.print(data.value3);
   lcd.print(",");
-  lcd.print(data.value3);
+  lcd.print(data.value4);
 }
 
 void setup() {
