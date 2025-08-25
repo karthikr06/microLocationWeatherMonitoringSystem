@@ -169,7 +169,7 @@
             const labels = recentData.map(row => new Date(row.Timestamp).toLocaleTimeString());
             const tempData = recentData.map(row => parseFloat(row.Temperature));
             const humidityData = recentData.map(row => parseFloat(row.Humidity));
-            const airQualityData = recentData.map(row => parseFloat(row['Air Quality']) * 10); // Convert to percentage
+            const airQualityData = recentData.map(row => parseFloat(row['Air Quality'])); // Convert to percentage
             const rainData = recentData.map(row => parseFloat(row.Rainfall));
 
             updateChartData(myCharts.temp, labels, tempData);
